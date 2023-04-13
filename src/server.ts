@@ -23,5 +23,5 @@ app.register(imagesRoutes, {
 app.listen({
   port: env.PORT,
 }).then(() => {
-  console.log('Http Server running!')
+  console.log('Http Servidor Rodando!')
 })
