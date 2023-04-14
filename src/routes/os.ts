@@ -88,6 +88,20 @@ export async function osRoutes(app: FastifyInstance) {
     }
   })
 
+  //Rota de busca de apenas uma OS
+  app.get('/:numero', async (request) => {
+
+    const getOsParamsSchema = z.object({
+      numero: z.string()
+    })
+
+    const { numero } = getOsParamsSchema.parse(request.params)
+
+    const os = await knex('os').where('numero', numero).first()
+
+    return os;
+  })
+
   //Rota de busca de todas as do colaborador
   app.get('/colaborador/:id', async (request) => {
 
