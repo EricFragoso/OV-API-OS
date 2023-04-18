@@ -26,11 +26,12 @@ export async function osRoutes(app: FastifyInstance) {
       inicio: z.string(),
       finalizacao: z.string(),
       solucao: z.string(),
+      status: z.string(),
     })
 
     const { numero, cliente, infoCliente, demandante, cnpj, telefone,
       data, hora, ocorrencia, prioridade, cidade, motivo, tipoAtendimento,
-      colaborador, inicio, finalizacao, solucao } = createOsBodySchema.parse(request.body,)
+      colaborador, inicio, finalizacao, solucao, status } = createOsBodySchema.parse(request.body,)
 
     await knex('os').insert({
       id: randomUUID(),
@@ -51,6 +52,7 @@ export async function osRoutes(app: FastifyInstance) {
       inicio,
       finalizacao,
       solucao,
+      status,
     })
 
     return reply.status(201).send("O.S. registrada com sucesso!");

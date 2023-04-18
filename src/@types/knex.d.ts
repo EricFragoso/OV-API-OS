@@ -22,13 +22,14 @@ declare module 'knex/types/tables' {
       inicio?: string
       finalizacao?: string
       solucao?: string
+      status?: string
       created_at: string
     }
     ativo: {
       id: string
       qr: string
+      osNumero: string
       cliente: string
-      status?: string
       BTU?: string
       anoFabricacao?: string
       produto?: string
