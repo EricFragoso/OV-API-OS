@@ -6,6 +6,7 @@ declare module 'knex/types/tables' {
     os: {
       id: string
       numero: string
+      ativoNumero: string
       cliente: string
       infoCliente?: string
       demandante?: string
@@ -28,7 +29,6 @@ declare module 'knex/types/tables' {
     ativo: {
       id: string
       qr: string
-      osNumero: string
       cliente: string
       BTU?: string
       anoFabricacao?: string
@@ -39,9 +39,11 @@ declare module 'knex/types/tables' {
     historico: {
       id: string
       ativo: string
+      atendentes: string
       servicos?: string
       reposicao?: string
       laudo?: string
+      geoloc?: string
       estado_conservacao?: string
       proximo_atendimento?: string
       created_at: string
@@ -50,6 +52,7 @@ declare module 'knex/types/tables' {
       id: string
       ativo: string
       os: string
+      favorita: boolean
       path?: string
       created_at: string
     }

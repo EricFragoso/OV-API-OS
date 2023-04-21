@@ -9,7 +9,6 @@ export async function ativoRoutes(app: FastifyInstance) {
 
     const createAtivoBodySchema = z.object({
       qr: z.string(),
-      osNumero: z.string(),
       cliente: z.string(),
       BTU: z.string(),
       anoFabricacao: z.string(),
@@ -17,13 +16,12 @@ export async function ativoRoutes(app: FastifyInstance) {
       contrato: z.string(),
     })
 
-    const { qr, osNumero, cliente, BTU, anoFabricacao, produto,
+    const { qr, cliente, BTU, anoFabricacao, produto,
       contrato } = createAtivoBodySchema.parse(request.body,)
 
     await knex('ativo').insert({
       id: randomUUID(),
       qr,
-      osNumero,
       cliente,
       BTU,
       anoFabricacao,

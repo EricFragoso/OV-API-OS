@@ -10,6 +10,7 @@ export async function osRoutes(app: FastifyInstance) {
 
     const createOsBodySchema = z.object({
       numero: z.string(),
+      ativoNumero: z.string(),
       cliente: z.string(),
       infoCliente: z.string(),
       demandante: z.string(),
@@ -29,13 +30,14 @@ export async function osRoutes(app: FastifyInstance) {
       status: z.string(),
     })
 
-    const { numero, cliente, infoCliente, demandante, cnpj, telefone,
+    const { numero, ativoNumero, cliente, infoCliente, demandante, cnpj, telefone,
       data, hora, ocorrencia, prioridade, cidade, motivo, tipoAtendimento,
       colaborador, inicio, finalizacao, solucao, status } = createOsBodySchema.parse(request.body,)
 
     await knex('os').insert({
       id: randomUUID(),
       numero,
+      ativoNumero,
       cliente,
       infoCliente,
       demandante,
@@ -61,19 +63,21 @@ export async function osRoutes(app: FastifyInstance) {
   //atualiza OS
   app.put('/', async (request, reply) => {
 
-    const createOsBodySchema = z.object({
+    const updateOsBodySchema = z.object({
       numero: z.string(),
       inicio: z.string(),
       finalizacao: z.string(),
       solucao: z.string(),
+      status: z.string(),
     })
 
-    const { numero, inicio, finalizacao, solucao } = createOsBodySchema.parse(request.body,)
+    const { numero, inicio, finalizacao, solucao, status } = updateOsBodySchema.parse(request.body,)
 
     await knex('os').where('numero', numero).update({
       inicio,
       finalizacao,
       solucao,
+      status
     })
 
     return reply.status(200).send(`O.S. ${numero} -> Atualizada com sucesso!`);
