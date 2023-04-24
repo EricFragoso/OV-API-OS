@@ -45,7 +45,7 @@ export async function ativoRoutes(app: FastifyInstance) {
   })
 
   //Rota de busca de todas as do colaborador
-  app.get('/ativo/:qr', async (request) => {
+  app.get('/:qr', async (request) => {
 
     const getOsParamsSchema = z.object({
       qr: z.string()
@@ -60,7 +60,7 @@ export async function ativoRoutes(app: FastifyInstance) {
     }
   })
 
-  app.get('/ativo/numero/:numero', async (request) => {
+  app.get('/numero/:numero', async (request) => {
 
     const getOsParamsSchema = z.object({
       numero: z.string()
