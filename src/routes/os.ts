@@ -117,7 +117,10 @@ export async function osRoutes(app: FastifyInstance) {
 
     const { id } = getOsParamsSchema.parse(request.params)
 
-    const os = await knex('os').where('colaborador', id)
+    const os = await knex('os').where({
+      colaborador: id,
+      satus: 'Aberto'
+    })
 
     return os;
   })
