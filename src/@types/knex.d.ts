@@ -28,6 +28,7 @@ declare module 'knex/types/tables' {
     }
     ativo: {
       id: string
+      numeroAtivo: string
       qr: string
       cliente: string
       BTU?: string

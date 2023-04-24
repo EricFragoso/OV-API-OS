@@ -8,6 +8,7 @@ export async function ativoRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
 
     const createAtivoBodySchema = z.object({
+      numeroAtivo: z.string(),
       qr: z.string(),
       cliente: z.string(),
       BTU: z.string(),
@@ -16,11 +17,12 @@ export async function ativoRoutes(app: FastifyInstance) {
       contrato: z.string(),
     })
 
-    const { qr, cliente, BTU, anoFabricacao, produto,
+    const { numeroAtivo, qr, cliente, BTU, anoFabricacao, produto,
       contrato } = createAtivoBodySchema.parse(request.body,)
 
     await knex('ativo').insert({
       id: randomUUID(),
+      numeroAtivo,
       qr,
       cliente,
       BTU,
@@ -52,6 +54,21 @@ export async function ativoRoutes(app: FastifyInstance) {
     const { qr } = getOsParamsSchema.parse(request.params)
 
     const ativo = await knex('ativo').where('qr', qr)
+
+    return {
+      ativo
+    }
+  })
+
+  app.get('/ativo/numero/:numero', async (request) => {
+
+    const getOsParamsSchema = z.object({
+      numero: z.string()
+    })
+
+    const { numero } = getOsParamsSchema.parse(request.params)
+
+    const ativo = await knex('ativo').where('numeroAtivo', numero)
 
     return {
       ativo
