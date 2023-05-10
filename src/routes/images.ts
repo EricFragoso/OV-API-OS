@@ -1,5 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { knex } from "../database";
+import { z } from "zod";
+import { randomUUID } from "crypto";
 
 export async function imagesRoutes(app: FastifyInstance) {
   app.get('/', async () => {
@@ -7,5 +9,27 @@ export async function imagesRoutes(app: FastifyInstance) {
     const tables = await knex('images').select('*')
 
     return tables;
+  })
+
+  app.post('/', async (request, reply) => {
+
+    const createImagesBodySchema = z.object({
+      ativo: z.string(),
+      os: z.string(),
+      favorita: z.boolean(),
+      path: z.string(),
+    })
+
+    const { ativo, os, favorita, path} = createImagesBodySchema.parse(request.body,)
+
+    await knex('images').insert({
+      id: randomUUID(),
+      ativo, 
+      os, 
+      favorita, 
+      path
+    })
+
+    return reply.status(201).send("Imagem registrado com sucesso!");
   })
 }
