@@ -32,4 +32,34 @@ export async function imagesRoutes(app: FastifyInstance) {
 
     return reply.status(201).send("Imagem registrado com sucesso!");
   })
+
+  app.get('/os/:os', async (request) => {
+
+    const getImagesParamsSchema = z.object({
+      os: z.string()
+    })
+
+    const { os } = getImagesParamsSchema.parse(request.params)
+
+    const images = await knex('images').where('os', os)
+
+    return {
+      images
+    }
+  })
+
+  app.get('/favorite/:ativo', async (request) => {
+
+    const getImagesParamsSchema = z.object({
+      ativo: z.string()
+    })
+
+    const { ativo } = getImagesParamsSchema.parse(request.params)
+s
+    const image = await knex('image').where('ativo', ativo).where('favorita',true)
+
+    return {
+      ativo
+    }
+  })
 }
