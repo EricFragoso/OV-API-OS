@@ -5,10 +5,14 @@ import { ativoRoutes } from './routes/ativo';
 import { historicoRoutes } from './routes/historico';
 import { imagesRoutes } from './routes/images';
 import cors from '@fastify/cors';
+import { testRoutes } from './routes/test';
 
 const app = fastify();
 app.register(cors);
 
+app.register(testRoutes, {
+  prefix: 'test',
+})
 app.register(osRoutes, {
   prefix: 'os',
 })
