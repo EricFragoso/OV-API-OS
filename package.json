@@ -21,7 +21,6 @@
     "eslint": "^8.37.0",
     "tsup": "^6.7.0",
     "tsx": "^3.12.6",
-    "sqlite3": "^5.1.6",
     "typescript": "^5.0.2"
   },
   "dependencies": {
