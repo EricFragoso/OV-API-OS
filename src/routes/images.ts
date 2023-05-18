@@ -4,6 +4,8 @@ import { z } from "zod";
 import { randomUUID } from "crypto";
 
 export async function imagesRoutes(app: FastifyInstance) {
+  
+  //retorna todas as imagens cadastradas
   app.get('/', async () => {
 
     const tables = await knex('images').select('*')
@@ -11,6 +13,7 @@ export async function imagesRoutes(app: FastifyInstance) {
     return tables;
   })
 
+  //cria a imagem e salva o path
   app.post('/', async (request, reply) => {
 
     const createImagesBodySchema = z.object({
@@ -33,6 +36,7 @@ export async function imagesRoutes(app: FastifyInstance) {
     return reply.status(201).send("Imagem registrado com sucesso!");
   })
 
+  //retorna imagem da os
   app.get('/os/:os', async (request) => {
 
     const getImagesParamsSchema = z.object({
@@ -48,6 +52,7 @@ export async function imagesRoutes(app: FastifyInstance) {
     }
   })
 
+  //retorna imagem favorita do ativo
   app.get('/favorite/:ativo', async (request) => {
 
     const getImagesParamsSchema = z.object({
@@ -60,6 +65,24 @@ export async function imagesRoutes(app: FastifyInstance) {
 
     return {
       image
+    }
+  })
+
+  app.put('/:ativo/:image', async (request) => {
+
+    const getImagesParamsSchema = z.object({
+      ativo: z.string(),
+      image: z.string()
+    })
+
+    const { ativo, image } = getImagesParamsSchema.parse(request.params)
+
+    await knex('images').where({ativo: ativo, favorita:true}).update({favorita:false})
+
+    const novaFavorita = await knex('images').where({id: image}).update({favorita:true})
+
+    return {
+      novaFavorita
     }
   })
 }
