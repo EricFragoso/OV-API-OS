@@ -59,7 +59,7 @@ export async function imagesRoutes(app: FastifyInstance) {
     const image = await knex('image').where('ativo', ativo).where('favorita',true)
 
     return {
-      ativo
+      image
     }
   })
 }
