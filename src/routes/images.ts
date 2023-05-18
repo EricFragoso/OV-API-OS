@@ -56,7 +56,7 @@ export async function imagesRoutes(app: FastifyInstance) {
 
     const { ativo } = getImagesParamsSchema.parse(request.params)
 
-    const image = await knex('image').where('ativo', ativo).where('favorita',true)
+    const image = await knex('image').where({'ativo': ativo, 'favorita':true})
 
     return {
       image
