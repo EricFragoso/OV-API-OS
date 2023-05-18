@@ -78,8 +78,12 @@ export async function imagesRoutes(app: FastifyInstance) {
     const { ativo, image } = getImagesParamsSchema.parse(request.params)
 
     await knex('images').where({ativo: ativo, favorita:true}).update({favorita:false})
+    console.log("Desfavoritou imagem favorita atual")
 
-    const novaFavorita = await knex('images').where({id: image}).update({favorita:true})
+    await knex('images').where({id: image}).update({favorita:true})
+    console.log(`favoritou imagem ${image} `)
+    
+    const novaFavorita = await knex('images').where({ativo: ativo, favorita:true})
 
     return {
       novaFavorita
