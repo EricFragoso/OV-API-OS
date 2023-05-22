@@ -57,6 +57,19 @@ declare module 'knex/types/tables' {
       path?: string
       created_at: string
     }
+    preos: {
+      id: string
+      numeroAtivo: string
+      cnpj: string
+      ocorrencia?: string
+      prioridade?: string
+      motivo?: string
+      tipoAtendimento?: string
+      colaborador: string
+      inicio?: string
+      finalizacao?: string
+      solucao?: string
+      created_at: string
+    }
   }
-
 }
