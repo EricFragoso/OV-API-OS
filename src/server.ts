@@ -30,10 +30,8 @@ app.register(imagesRoutes, {
   prefix: 'images',
 })
 
-app.listen(env.PORT || 3000, '0.0.0.0', (err) => {
-  if (err) {
-    app.log.error(err);
-   process.exit(1);
-  }
-  console.log(`server running at ${env.PORT}`)
- })
+app.listen({
+  port: env.PORT,
+}).then(() => {
+  console.log('Http Servidor Rodando!')
+})
