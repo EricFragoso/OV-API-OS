@@ -21,7 +21,7 @@ export async function preOsRoutes(app: FastifyInstance) {
       solucao: z.string(),
     })
 
-    const { id, numeroAtivo, cnpj, ocorrencia, prioridade, motivo, tipoAtendimento,
+    const { numeroAtivo, cnpj, ocorrencia, prioridade, motivo, tipoAtendimento,
       colaborador, inicio, finalizacao, solucao} = createPreOsBodySchema.parse(request.body,)
 
     await knex('preos').insert({
