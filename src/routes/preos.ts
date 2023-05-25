@@ -9,7 +9,6 @@ export async function preOsRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
 
     const createPreOsBodySchema = z.object({
-      id: z.string(),
       numeroAtivo: z.string(),
       cnpj: z.string(),
       ocorrencia: z.string(),
