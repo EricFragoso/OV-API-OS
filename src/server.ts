@@ -15,7 +15,7 @@ app.register(testRoutes, {
   prefix: 'test',
 })
 app.register(preOsRoutes, {
-  prefix: 'preeos',
+  prefix: 'preos',
 })
 app.register(osRoutes, {
   prefix: 'os',

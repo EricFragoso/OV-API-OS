@@ -20,11 +20,10 @@ export async function preOsRoutes(app: FastifyInstance) {
       inicio: z.string(),
       finalizacao: z.string(),
       solucao: z.string(),
-      created_at: z.string(),
     })
 
     const { id, numeroAtivo, cnpj, ocorrencia, prioridade, motivo, tipoAtendimento,
-      colaborador, inicio, finalizacao, solucao, created_at} = createPreOsBodySchema.parse(request.body,)
+      colaborador, inicio, finalizacao, solucao} = createPreOsBodySchema.parse(request.body,)
 
     await knex('preos').insert({
       id: randomUUID(),
@@ -37,8 +36,7 @@ export async function preOsRoutes(app: FastifyInstance) {
       colaborador,
       inicio,
       finalizacao,
-      solucao,
-      created_at,
+      solucao
     })
 
     return reply.status(201).send("Pre-O.S. registrada com sucesso!");
