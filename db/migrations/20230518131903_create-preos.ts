@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
 
 await knex.schema.createTable('preos', (table) => {
     table.uuid('id').primary;
-    table.text('numerAtivo').notNullable();
+    table.text('numeroAtivo').notNullable();
     table.text('cnpj').notNullable();
     table.text('ocorrencia');
     table.text('prioridade');
