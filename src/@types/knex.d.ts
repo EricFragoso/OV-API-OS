@@ -59,7 +59,7 @@ declare module 'knex/types/tables' {
     }
     preos: {
       id: string
-      numerAtivo: string
+      numeroAtivo: string
       cnpj: string
       ocorrencia?: string
       prioridade?: string

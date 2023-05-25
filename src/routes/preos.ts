@@ -9,7 +9,7 @@ export async function preOsRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
 
     const createPreOsBodySchema = z.object({
-      numerAtivo: z.string(),
+      numeroAtivo: z.string(),
       cnpj: z.string(),
       ocorrencia: z.string(),
       prioridade: z.string(),
@@ -21,12 +21,12 @@ export async function preOsRoutes(app: FastifyInstance) {
       solucao: z.string(),
     })
 
-    const { numerAtivo, cnpj, ocorrencia, prioridade, motivo, tipoAtendimento,
+    const { numeroAtivo, cnpj, ocorrencia, prioridade, motivo, tipoAtendimento,
       colaborador, inicio, finalizacao, solucao} = createPreOsBodySchema.parse(request.body,)
 
     await knex('preos').insert({
       id: randomUUID(),
-      numerAtivo,
+      numeroAtivo,
       cnpj,
       ocorrencia,
       prioridade,
