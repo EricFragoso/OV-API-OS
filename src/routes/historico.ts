@@ -5,14 +5,14 @@ import { randomUUID } from "crypto";
 
 export async function historicoRoutes(app: FastifyInstance) {
   app.get('/', async () => {
-
+    console.log('Rota de busca de todos os historicos')
     const tables = await knex('historico').select('*')
 
     return tables;
   })
 
   app.post('/', async (request, reply) => {
-
+    console.log('Rota de criação de historico')
     const createHistoricoBodySchema = z.object({
       ativo: z.string(),
       atendentes: z.string(),
@@ -43,7 +43,7 @@ export async function historicoRoutes(app: FastifyInstance) {
   })
 
   app.get('/:numero', async (request) => {
-
+    console.log('Rota de busca de historicos por numero do ativo')
     const getOsParamsSchema = z.object({
       numero: z.string()
     })

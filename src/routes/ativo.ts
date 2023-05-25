@@ -5,8 +5,9 @@ import { z } from "zod";
 
 export async function ativoRoutes(app: FastifyInstance) {
   //Rota de criação de Ativo
+  
   app.post('/', async (request, reply) => {
-
+    console.log('Rota de criação de Ativo')
     const createAtivoBodySchema = z.object({
       numeroAtivo: z.string(),
       qr: z.string(),
@@ -36,7 +37,7 @@ export async function ativoRoutes(app: FastifyInstance) {
 
   //Rota de busca de todas as OS
   app.get('/', async () => {
-
+    console.log('Rota de busca de todas os ativos')
     const ativo = await knex('ativo').select()
 
     return {
@@ -46,7 +47,7 @@ export async function ativoRoutes(app: FastifyInstance) {
 
   //Rota de busca de todas as do colaborador
   app.get('/:qr', async (request) => {
-
+    console.log('Rota de busca por qr')
     const getOsParamsSchema = z.object({
       qr: z.string()
     })
@@ -61,7 +62,7 @@ export async function ativoRoutes(app: FastifyInstance) {
   })
 
   app.get('/numero/:numero', async (request) => {
-
+    console.log('Rota de busca de ativo pelo numero')
     const getOsParamsSchema = z.object({
       numero: z.string()
     })
