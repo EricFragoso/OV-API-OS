@@ -69,6 +69,7 @@ declare module 'knex/types/tables' {
       inicio?: string
       finalizacao?: string
       solucao?: string
+      sincronizada?:boolean
       created_at: string
     }
   }

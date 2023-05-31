@@ -19,10 +19,11 @@ export async function preOsRoutes(app: FastifyInstance) {
       inicio: z.string(),
       finalizacao: z.string(),
       solucao: z.string(),
+      sincronizada:z.boolean(),
     })
 
     const { numeroAtivo, cnpj, ocorrencia, prioridade, motivo, tipoAtendimento,
-      colaborador, inicio, finalizacao, solucao} = createPreOsBodySchema.parse(request.body,)
+      colaborador, inicio, finalizacao, solucao,sincronizada} = createPreOsBodySchema.parse(request.body,)
 
     await knex('preos').insert({
       id: randomUUID(),
@@ -35,7 +36,8 @@ export async function preOsRoutes(app: FastifyInstance) {
       colaborador,
       inicio,
       finalizacao,
-      solucao
+      solucao,
+      sincronizada
     })
 
     return reply.status(201).send("Pre-O.S. registrada com sucesso!");
@@ -50,6 +52,37 @@ export async function preOsRoutes(app: FastifyInstance) {
       preos
     }
   })
+
+  //retorna imagem da os
+  app.get('/:id', async (request) => {
+
+    const getPreosParamsSchema = z.object({
+      id: z.string()
+    })
+
+    const { id } = getPreosParamsSchema.parse(request.params)
+
+    const preos = await knex('id').where('id', id)
+
+    return {
+      preos
+    }
+  })
+
+  app.put('/:id', async (request, reply) => {
+
+    const getPreosParamsSchema = z.object({
+      id: z.string()
+    })
+
+    const { id } = getPreosParamsSchema.parse(request.params)
+
+    await knex('preos').where({id: id}).update({sincronizada:true})
+    console.log("Sincronizou pre os")
+
+    return reply.status(204).send("Pré OS sincronizada");
+  })
+
 
   //Rota de busca de apenas uma OS
   app.delete('/', async (request, reply) => {
