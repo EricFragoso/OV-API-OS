@@ -71,12 +71,22 @@ export async function preOsRoutes(app: FastifyInstance) {
   })
 
 
-  //Rota de busca de apenas uma OS
-  app.delete('/', async (request, reply) => {
+  app.put('/id/:id', async (request) => {
 
-     await knex('preos').del()
+    const getPreosParamsSchema = z.object({
+      id: z.string()
+    })
 
-     return reply.status(201).send("Todas as Pre-O.S. foram excluidas");
+    const { id } = getPreosParamsSchema.parse(request.params)
+
+    await knex('preos').where({id: id}).update({sincronizada:true})
+    console.log("Atualizou")
+    
+    const novaFavorita = await knex('preos').where({id: id})
+
+    return {
+      novaFavorita
+    }
   })
 
 }
