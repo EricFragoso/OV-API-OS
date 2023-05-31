@@ -77,6 +77,7 @@ export async function preOsRoutes(app: FastifyInstance) {
 
     const { id } = getPreosParamsSchema.parse(request.params)
 
+    console.log(`chegou o id ${id}`)
     const preos = await knex('preos').where({
       id: id
     })
