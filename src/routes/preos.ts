@@ -77,7 +77,10 @@ export async function preOsRoutes(app: FastifyInstance) {
 
     const { id } = getPreosParamsSchema.parse(request.params)
 
-    await knex('preos').where({id: id}).update({sincronizada:true})
+    const preos = await knex('preos').where({
+      id: id
+    })
+
     console.log("Sincronizou pre os")
 
     return reply.status(204).send("Pré OS sincronizada");
