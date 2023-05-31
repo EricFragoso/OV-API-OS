@@ -54,7 +54,8 @@ export async function preOsRoutes(app: FastifyInstance) {
   })
 
   //retorna imagem da os
-  app.get('/:id', async (request) => {
+
+  app.get('/id/:id', async (request) => {
 
     const getPreosParamsSchema = z.object({
       id: z.string()
@@ -62,29 +63,11 @@ export async function preOsRoutes(app: FastifyInstance) {
 
     const { id } = getPreosParamsSchema.parse(request.params)
 
-    const preos = await knex('id').where('id', id)
+    const preos = await knex('preos').where('id', id)
 
     return {
       preos
     }
-  })
-
-  app.put('/:id', async (request, reply) => {
-
-    const getPreosParamsSchema = z.object({
-      id: z.string()
-    })
-
-    const { id } = getPreosParamsSchema.parse(request.params)
-
-    console.log(`chegou o id ${id}`)
-    const preos = await knex('preos').where({
-      id: id
-    })
-
-    console.log("Sincronizou pre os")
-
-    return reply.status(204).send("Pré OS sincronizada");
   })
 
 
