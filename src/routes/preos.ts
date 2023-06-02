@@ -79,7 +79,7 @@ export async function preOsRoutes(app: FastifyInstance) {
 
     const { id } = getPreosParamsSchema.parse(request.params)
 
-    await knex('preos').where({id: id}).update({sincronizada:false})
+    await knex('preos').where({id: id}).update({sincronizada:true})
     console.log("Atualizou")
     
     const novaFavorita = await knex('preos').where({id: id})
